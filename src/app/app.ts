@@ -25,8 +25,8 @@ export class App {
       vehicle: '2023 Porsche 911',
       financingInterest: true ,
       vehicleAvailable: true,
-      daysSinceInquiry: 1,
-      daysSinceContact: 4,
+      daysSinceInquiry: 4,
+      daysSinceContact: 1,
       tradeInInterest: false
 
 
@@ -39,7 +39,16 @@ export class App {
       daysSinceInquiry: 3,
       daysSinceContact: 1,
       tradeInInterest: true
-    }
+    },
+    {
+      name: 'Maya Rodriguez',
+      vehicle: '2021 Lamborghini Huracan EVO',
+      financingInterest: false,
+      vehicleAvailable: true,
+      daysSinceInquiry: 3,
+      daysSinceContact: 3,
+      tradeInInterest: true
+} 
   ];
 
   calculateScore(leadItem: Lead ) {
@@ -53,6 +62,23 @@ export class App {
     }
     if(leadItem.tradeInInterest){
       score = score + 15;
+    }
+    if(leadItem.daysSinceInquiry <= 1){
+      score = score + 10;
+    }
+    else if(leadItem.daysSinceInquiry <= 3){
+      score = score + 5
+    }
+    if(leadItem.daysSinceContact >= 3 &&
+      leadItem.daysSinceContact <= 5
+    ){
+      score = score + 10;
+    }
+    else if(
+      leadItem.daysSinceContact >= 6 &&
+      leadItem.daysSinceContact <= 10
+    ){
+      score = score + 5;
     }
     return score;
   }
