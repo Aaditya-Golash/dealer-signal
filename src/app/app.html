@@ -5,7 +5,7 @@
 <p>Days since contact: {{ leads[0].daysSinceContact }}</p>
 <p>Financing interest: {{ leads[0].financingInterest }}</p>
 <p>Lead score: {{calculateScore(leads[0])}}</p> -->
-@for (leadItem of leads; track leadItem.name) {
+@for (leadItem of getSortedLeads(); track leadItem.name) {
   <h3>{{leadItem.name}}</h3>
   <p>Vehicle: {{leadItem.vehicle}}</p>
   <p>Days since inquiry: {{leadItem.daysSinceInquiry}}</p>

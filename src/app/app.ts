@@ -82,4 +82,12 @@ export class App {
     }
     return score;
   }
+
+  getSortedLeads(){
+    const copiedLeads = [...this.leads];
+    copiedLeads.sort(
+      (a,b) => this.calculateScore(b) - this.calculateScore(a)
+    );
+    return copiedLeads;
+  }
 }
