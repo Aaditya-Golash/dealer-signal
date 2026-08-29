@@ -83,6 +83,18 @@ export class App {
     return score;
   }
 
+  getPriorityScore(score: number){
+    if(score>=50){
+      return 'High';
+    }
+    else if(score>= 35){
+      return 'Medium';
+    }
+    else {
+    return 'Low';
+  }
+  }
+
   getSortedLeads(){
     const copiedLeads = [...this.leads];
     copiedLeads.sort(

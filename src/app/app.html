@@ -13,5 +13,6 @@
   <p>Financing interest: {{leadItem.financingInterest}}</p>
   <p>Trade-in interest: {{leadItem.tradeInInterest}}</p>
   <p>Lead score: {{calculateScore(leadItem)}}</p>
+  <p>Priority: {{ getPriorityScore(calculateScore(leadItem))}}</p>
 }
 
