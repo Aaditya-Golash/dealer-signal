@@ -1,17 +1,17 @@
 <h1>{{title()}}</h1>
 <p> Dealership lead prioritization dashboard</p>
-<h2>{{lead.name}}</h2>
-<p>Vehicle: {{ lead.vehicle }}</p>
-<p>Days since contact: {{ lead.daysSinceContact }}</p>
-<p>Financing interest: {{ lead.financingInterest }}</p>
-<p>Lead score: {{calculateScore(lead)}}</p>
-<p> Second lead: {{ leadNames[1]}}</p>
-@for (name of leadNames; track name) {
-  <p>{{name}}</p>
-}
+<!-- <h2>{{leads[0].name}}</h2>
+<p>Vehicle: {{ leads[0].vehicle }}</p>
+<p>Days since contact: {{ leads[0].daysSinceContact }}</p>
+<p>Financing interest: {{ leads[0].financingInterest }}</p>
+<p>Lead score: {{calculateScore(leads[0])}}</p> -->
 @for (leadItem of leads; track leadItem.name) {
   <h3>{{leadItem.name}}</h3>
-  <p>{{leadItem.vehicle}}</p>
+  <p>Vehicle: {{leadItem.vehicle}}</p>
+  <p>Days since inquiry: {{leadItem.daysSinceInquiry}}</p>
+  <p>Days since contact: {{leadItem.daysSinceContact}}</p>
+  <p>Financing interest: {{leadItem.financingInterest}}</p>
+  <p>Trade-in interest: {{leadItem.tradeInInterest}}</p>
   <p>Lead score: {{calculateScore(leadItem)}}</p>
 }
 
