@@ -4,7 +4,7 @@
 <p>Vehicle: {{ lead.vehicle }}</p>
 <p>Days since contact: {{ lead.daysSinceContact }}</p>
 <p>Financing interest: {{ lead.financingInterest }}</p>
-<p>Lead score: {{calculateScore()}}</p>
+<p>Lead score: {{calculateScore(lead)}}</p>
 <p> Second lead: {{ leadNames[1]}}</p>
 @for (name of leadNames; track name) {
   <p>{{name}}</p>
@@ -12,5 +12,6 @@
 @for (leadItem of leads; track leadItem.name) {
   <h3>{{leadItem.name}}</h3>
   <p>{{leadItem.vehicle}}</p>
+  <p>Lead score: {{calculateScore(leadItem)}}</p>
 }
 

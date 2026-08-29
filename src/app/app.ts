@@ -24,22 +24,26 @@ export class App {
   protected readonly leads = [ 
     {
       name: 'Sarah Chen',
-      vehicle: '2023 Porsche 911'
+      vehicle: '2023 Porsche 911',
+      financingInterest: true ,
+      vehicleAvailable: true
 
     },
     {
       name: 'James Patel',
-      vehicle: '2022 Ferrari Roma'
+      vehicle: '2022 Ferrari Roma',
+      financingInterest: true ,
+      vehicleAvailable: false
     }
   ];
 
-  calculateScore(){
+  calculateScore(leadItem: {financingInterest: boolean; vehicleAvailable: boolean}){
     let score = 0;
 
-    if(this.lead.financingInterest){
+    if(leadItem.financingInterest){
       score = score + 20;
     }
-    if(this.lead.vehicleAvailable){
+    if(leadItem.vehicleAvailable){
       score = score + 20;
     }
     return score;
