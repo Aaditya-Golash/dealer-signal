@@ -10,6 +10,9 @@ export type Lead = {
   tradeInInterest: boolean;
   inventoryStatus: VehicleStatus;
   websiteListed: boolean;
+  stockNumber: string;
+  priceCad: number | null;
+  odometerKm: number;
 };
 
 export function calculateScore(leadItem: Lead): number {

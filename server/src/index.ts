@@ -23,14 +23,17 @@ app.use(cors({
 // websiteListed: boolean;}
 const leads: Lead[] = [{
       name: 'Sarah Chen',
-      vehicle: '2023 Porsche 911',
+      vehicle: '2023 Audi R8 Coupe RWD V10 performance',
       financingInterest: true ,
       vehicleAvailable: true,
       daysSinceInquiry: 4,
       daysSinceContact: 1,
       tradeInInterest: false,
       inventoryStatus: 'available',
-      websiteListed: true
+      websiteListed: true,
+      stockNumber: 'AU-2409',
+      priceCad: 214990,
+      odometerKm: 11125
 },
     {
       name: 'James Patel',
@@ -41,19 +44,25 @@ const leads: Lead[] = [{
       daysSinceContact: 1,
       tradeInInterest: true,
       inventoryStatus: 'sold',
-      websiteListed: true
+      websiteListed: true,
+      stockNumber: 'DEMO-SOLD-001',
+      priceCad: null,
+      odometerKm: 18000,
     },
 
     {
       name: 'Maya Rodriguez',
-      vehicle: '2021 Lamborghini Huracan EVO',
+      vehicle: '2018 McLaren 720S Launch Edition',
       financingInterest: false,
       vehicleAvailable: true,
       daysSinceInquiry: 3,
       daysSinceContact: 3,
       tradeInInterest: true,
       inventoryStatus: 'available',
-    websiteListed: true },
+      websiteListed: true,
+      stockNumber: 'ACO-2413',
+      priceCad: 274990,
+      odometerKm: 22000, }
 
 ];
 // function calculateScore(leadItem: Lead): number {
