@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import {
   calculateScore,
   hasListingMismatch,
@@ -7,6 +8,9 @@ import {
 
 const app = express();
 const PORT = 3000;
+app.use(cors({
+  origin: 'http://localhost:4200'
+}));
 // type VehicleStatus = 'available' | 'pending' | 'sold';
 // type Lead = {name : string;
 // vehicle : string;

@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 type Lead = {
   name: string;
@@ -9,6 +10,10 @@ type Lead = {
   daysSinceInquiry: number;
   daysSinceContact: number;
   tradeInInterest: boolean;
+  inventoryStatus: 'available' | 'pending' | 'sold';
+  websiteListed: boolean;
+  score: number;
+  listingMismatch: boolean;
 };
 
 @Component({
@@ -19,37 +24,46 @@ type Lead = {
 })
 export class App {
   protected readonly title = signal('DealerSignal');
-  protected readonly leads: Lead[] = [ 
-    {
-      name: 'Sarah Chen',
-      vehicle: '2023 Porsche 911',
-      financingInterest: true ,
-      vehicleAvailable: true,
-      daysSinceInquiry: 4,
-      daysSinceContact: 1,
-      tradeInInterest: false
+  private readonly http = inject(HttpClient);
+  protected leads: Lead[] = []; 
+  loadLeads() {
+  return this.http.get<Lead[]>('http://localhost:3000/api/leads');
+}
+constructor() {
+  this.loadLeads().subscribe((data) => {
+    this.leads = data;
+  });
+}
+    //{
+//       name: 'Sarah Chen',
+//       vehicle: '2023 Porsche 911',
+//       financingInterest: true ,
+//       vehicleAvailable: true,
+//       daysSinceInquiry: 4,
+//       daysSinceContact: 1,
+//       tradeInInterest: false
 
 
-    },
-    {
-      name: 'James Patel',
-      vehicle: '2022 Ferrari Roma',
-      financingInterest: true ,
-      vehicleAvailable: false,
-      daysSinceInquiry: 3,
-      daysSinceContact: 1,
-      tradeInInterest: true
-    },
-    {
-      name: 'Maya Rodriguez',
-      vehicle: '2021 Lamborghini Huracan EVO',
-      financingInterest: false,
-      vehicleAvailable: true,
-      daysSinceInquiry: 3,
-      daysSinceContact: 3,
-      tradeInInterest: true
-} 
-  ];
+//     },
+//     {
+//       name: 'James Patel',
+//       vehicle: '2022 Ferrari Roma',
+//       financingInterest: true ,
+//       vehicleAvailable: false,
+//       daysSinceInquiry: 3,
+//       daysSinceContact: 1,
+//       tradeInInterest: true
+//     },
+//     {
+//       name: 'Maya Rodriguez',
+//       vehicle: '2021 Lamborghini Huracan EVO',
+//       financingInterest: false,
+//       vehicleAvailable: true,
+//       daysSinceInquiry: 3,
+//       daysSinceContact: 3,
+//       tradeInInterest: true
+// } 
+//   ];
 
   calculateScore(leadItem: Lead ) {
     let score = 0;
