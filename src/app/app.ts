@@ -65,37 +65,37 @@ constructor() {
 // } 
 //   ];
 
-  calculateScore(leadItem: Lead ) {
-    let score = 0;
+  // calculateScore(leadItem: Lead ) {
+  //   let score = 0;
 
-    if(leadItem.financingInterest){
-      score = score + 20;
-    }
-    if(leadItem.vehicleAvailable){
-      score = score + 20;
-    }
-    if(leadItem.tradeInInterest){
-      score = score + 15;
-    }
-    if(leadItem.daysSinceInquiry <= 1){
-      score = score + 10;
-    }
-    else if(leadItem.daysSinceInquiry <= 3){
-      score = score + 5
-    }
-    if(leadItem.daysSinceContact >= 3 &&
-      leadItem.daysSinceContact <= 5
-    ){
-      score = score + 10;
-    }
-    else if(
-      leadItem.daysSinceContact >= 6 &&
-      leadItem.daysSinceContact <= 10
-    ){
-      score = score + 5;
-    }
-    return score;
-  }
+  //   if(leadItem.financingInterest){
+  //     score = score + 20;
+  //   }
+  //   if(leadItem.vehicleAvailable){
+  //     score = score + 20;
+  //   }
+  //   if(leadItem.tradeInInterest){
+  //     score = score + 15;
+  //   }
+  //   if(leadItem.daysSinceInquiry <= 1){
+  //     score = score + 10;
+  //   }
+  //   else if(leadItem.daysSinceInquiry <= 3){
+  //     score = score + 5
+  //   }
+  //   if(leadItem.daysSinceContact >= 3 &&
+  //     leadItem.daysSinceContact <= 5
+  //   ){
+  //     score = score + 10;
+  //   }
+  //   else if(
+  //     leadItem.daysSinceContact >= 6 &&
+  //     leadItem.daysSinceContact <= 10
+  //   ){
+  //     score = score + 5;
+  //   }
+  //   return score;
+  // }
 
   getPriorityScore(score: number){
     if(score>=50){
@@ -109,11 +109,11 @@ constructor() {
   }
   }
 
-  getSortedLeads(){
-    const copiedLeads = [...this.leads];
-    copiedLeads.sort(
-      (a,b) => this.calculateScore(b) - this.calculateScore(a)
-    );
-    return copiedLeads;
-  }
+  // getSortedLeads(){
+  //   const copiedLeads = [...this.leads];
+  //   copiedLeads.sort(
+  //     (a,b) => this.calculateScore(b) - this.calculateScore(a)
+  //   );
+  //   return copiedLeads;
+  // }
 }

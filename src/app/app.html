@@ -5,14 +5,17 @@
 <p>Days since contact: {{ leads[0].daysSinceContact }}</p>
 <p>Financing interest: {{ leads[0].financingInterest }}</p>
 <p>Lead score: {{calculateScore(leads[0])}}</p> -->
-@for (leadItem of getSortedLeads(); track leadItem.name) {
+@for (leadItem of leads; track leadItem.name) {
   <h3>{{leadItem.name}}</h3>
   <p>Vehicle: {{leadItem.vehicle}}</p>
   <p>Days since inquiry: {{leadItem.daysSinceInquiry}}</p>
   <p>Days since contact: {{leadItem.daysSinceContact}}</p>
   <p>Financing interest: {{leadItem.financingInterest}}</p>
   <p>Trade-in interest: {{leadItem.tradeInInterest}}</p>
-  <p>Lead score: {{calculateScore(leadItem)}}</p>
-  <p>Priority: {{ getPriorityScore(calculateScore(leadItem))}}</p>
+  <p>Lead score: {{ leadItem.score }}</p>
+  <p>Priority: {{ getPriorityScore(leadItem.score) }}</p>
+  @if (leadItem.listingMismatch) {
+  <p> CAUTION: Sold vehicle is still listed on the website</p>
+}
 }
 
