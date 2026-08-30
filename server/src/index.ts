@@ -2,13 +2,16 @@ import express from 'express';
 
 const app = express();
 const PORT = 3000;
+type VehicleStatus = 'available' | 'pending' | 'sold';
 type Lead = {name : string;
 vehicle : string;
 financingInterest: boolean;
 vehicleAvailable:boolean ;
 daysSinceInquiry: number ;
 daysSinceContact: number ;
-tradeInInterest:boolean; }
+tradeInInterest:boolean; 
+inventoryStatus: VehicleStatus;
+websiteListed: boolean;}
 const leads: Lead[] = [{
       name: 'Sarah Chen',
       vehicle: '2023 Porsche 911',
@@ -16,7 +19,9 @@ const leads: Lead[] = [{
       vehicleAvailable: true,
       daysSinceInquiry: 4,
       daysSinceContact: 1,
-      tradeInInterest: false
+      tradeInInterest: false,
+      inventoryStatus: 'available',
+      websiteListed: true
 },
     {
       name: 'James Patel',
@@ -25,7 +30,9 @@ const leads: Lead[] = [{
       vehicleAvailable: false,
       daysSinceInquiry: 3,
       daysSinceContact: 1,
-      tradeInInterest: true
+      tradeInInterest: true,
+      inventoryStatus: 'sold',
+      websiteListed: true
     },
 
     {
@@ -35,7 +42,9 @@ const leads: Lead[] = [{
       vehicleAvailable: true,
       daysSinceInquiry: 3,
       daysSinceContact: 3,
-      tradeInInterest: true}
+      tradeInInterest: true,
+      inventoryStatus: 'available',
+    websiteListed: true },
 
 ];
 function calculateScore(leadItem: Lead): number {
@@ -69,11 +78,19 @@ function calculateScore(leadItem: Lead): number {
     return score;
 }
 
+function hasListingMismatch(leadItem:Lead):boolean {
+    return(
+        leadItem.inventoryStatus === 'sold' &&
+        leadItem.websiteListed === true
+    );
+}
+
 const scoredLeads = leads.map(
   (leadItem) => {
     return {
       ...leadItem,
-      score: calculateScore(leadItem)
+      score: calculateScore(leadItem),
+      listingMismatch: hasListingMismatch(leadItem)
     };
   }
 );
