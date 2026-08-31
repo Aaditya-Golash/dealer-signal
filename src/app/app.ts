@@ -14,6 +14,9 @@ type Lead = {
   websiteListed: boolean;
   score: number;
   listingMismatch: boolean;
+  stockNumber: string;
+priceCad: number | null;
+odometerKm: number;
 };
 
 @Component({

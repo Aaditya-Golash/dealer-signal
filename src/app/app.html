@@ -1,21 +1,173 @@
-<h1>{{title()}}</h1>
-<p> Dealership lead prioritization dashboard</p>
-<!-- <h2>{{leads[0].name}}</h2>
-<p>Vehicle: {{ leads[0].vehicle }}</p>
-<p>Days since contact: {{ leads[0].daysSinceContact }}</p>
-<p>Financing interest: {{ leads[0].financingInterest }}</p>
-<p>Lead score: {{calculateScore(leads[0])}}</p> -->
-@for (leadItem of leads; track leadItem.name) {
-  <h3>{{leadItem.name}}</h3>
-  <p>Vehicle: {{leadItem.vehicle}}</p>
-  <p>Days since inquiry: {{leadItem.daysSinceInquiry}}</p>
-  <p>Days since contact: {{leadItem.daysSinceContact}}</p>
-  <p>Financing interest: {{leadItem.financingInterest}}</p>
-  <p>Trade-in interest: {{leadItem.tradeInInterest}}</p>
-  <p>Lead score: {{ leadItem.score }}</p>
-  <p>Priority: {{ getPriorityScore(leadItem.score) }}</p>
-  @if (leadItem.listingMismatch) {
-  <p> CAUTION: Sold vehicle is still listed on the website</p>
-}
-}
+<main class="dashboard">
+  <header class="dashboard-header">
+    <div class="brand-lockup">
+      <span class="brand-mark" aria-hidden="true">DS</span>
+      <div>
+        <p class="brand-name">{{ title() }}</p>
+        <p class="brand-division">August Luxury Motorcars</p>
+      </div>
+    </div>
 
+    <div class="header-context">
+      <span class="status-dot" aria-hidden="true"></span>
+      <span>Sales Intelligence</span>
+    </div>
+  </header>
+
+  <div class="dashboard-content">
+    <section class="summary-grid" aria-label="Lead queue summary">
+      <article class="summary-card summary-card--priority">
+        <div class="summary-count" aria-label="High-priority leads">
+          @for (leadItem of leads; track leadItem.name) {
+            @if (getPriorityScore(leadItem.score) === 'High') {
+              <span class="count-high" aria-hidden="true"></span>
+            }
+          }
+          <strong class="counter-value counter-value--high"></strong>
+        </div>
+        <div>
+          <p class="summary-label">High Priority</p>
+          <p class="summary-note">Requires immediate follow-up</p>
+        </div>
+      </article>
+
+      <article class="summary-card summary-card--alert">
+        <div class="summary-count" aria-label="Inventory alerts">
+          @for (leadItem of leads; track leadItem.name) {
+            @if (leadItem.listingMismatch) {
+              <span class="count-alert" aria-hidden="true"></span>
+            }
+          }
+          <strong class="counter-value counter-value--alert"></strong>
+        </div>
+        <div>
+          <p class="summary-label">Inventory Alerts</p>
+          <p class="summary-note">Listing exceptions detected</p>
+        </div>
+      </article>
+
+      <article class="summary-card">
+        <strong class="summary-count">{{ leads.length }}</strong>
+        <div>
+          <p class="summary-label">Active Leads</p>
+          <p class="summary-note">Currently in the sales queue</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="queue-section" aria-labelledby="lead-queue-title">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">Opportunity Pipeline</p>
+          <h1 id="lead-queue-title">Lead Queue</h1>
+        </div>
+        <p class="queue-count">{{ leads.length }} active opportunities</p>
+      </div>
+
+      <div class="lead-grid">
+        @for (leadItem of leads; track leadItem.name) {
+          <article
+            class="lead-card"
+            [class.lead-card--high]="getPriorityScore(leadItem.score) === 'High'"
+            [class.lead-card--alert]="leadItem.listingMismatch"
+          >
+            @if (leadItem.listingMismatch) {
+              <div class="inventory-alert" role="alert">
+                <span class="alert-icon" aria-hidden="true">!</span>
+                <div>
+                  <strong>Inventory Exception</strong>
+                  <span>Sold vehicle remains listed on the website</span>
+                </div>
+                <span class="alert-status">Action Required</span>
+              </div>
+            }
+
+            <div class="card-topline">
+              <span
+                class="priority-badge"
+                [class.priority-badge--high]="getPriorityScore(leadItem.score) === 'High'"
+                [class.priority-badge--medium]="getPriorityScore(leadItem.score) === 'Medium'"
+              >
+                {{ getPriorityScore(leadItem.score) }} Priority
+              </span>
+              <span class="score-block">
+                <span>Lead Score</span>
+                <strong>{{ leadItem.score }}</strong>
+              </span>
+            </div>
+
+            <div class="vehicle-heading">
+              <p class="vehicle-label">Vehicle of Interest</p>
+              <h2>{{ leadItem.vehicle }}</h2>
+              <div class="price-row">
+                @if (leadItem.priceCad !== null) {
+                  <strong>${{ leadItem.priceCad.toLocaleString('en-CA') }}</strong>
+                  <span>CAD</span>
+                } @else {
+                  <strong class="price-on-request">Contact dealership</strong>
+                  <span>Price</span>
+                }
+              </div>
+            </div>
+
+            <dl class="vehicle-facts">
+              <div>
+                <dt>Odometer</dt>
+                <dd>{{ leadItem.odometerKm }} <span>km</span></dd>
+              </div>
+              <div>
+                <dt>Stock Number</dt>
+                <dd>{{ leadItem.stockNumber }}</dd>
+              </div>
+            </dl>
+
+            <div class="customer-row">
+              <div class="customer-avatar" aria-hidden="true">{{ leadItem.name.charAt(0) }}</div>
+              <div>
+                <span>Prospective Client</span>
+                <h3>{{ leadItem.name }}</h3>
+              </div>
+            </div>
+
+            <dl class="lead-details">
+              <div>
+                <dt>Since Inquiry</dt>
+                <dd>
+                  {{ leadItem.daysSinceInquiry }}
+                  <span>{{ leadItem.daysSinceInquiry === 1 ? 'day' : 'days' }}</span>
+                </dd>
+              </div>
+              <div>
+                <dt>Since Contact</dt>
+                <dd>
+                  {{ leadItem.daysSinceContact }}
+                  <span>{{ leadItem.daysSinceContact === 1 ? 'day' : 'days' }}</span>
+                </dd>
+              </div>
+              <div>
+                <dt>Financing</dt>
+                <dd>
+                  @if (leadItem.financingInterest) {
+                    <span class="interest interest--yes">Interested</span>
+                  } @else {
+                    <span class="interest">Not indicated</span>
+                  }
+                </dd>
+              </div>
+              <div>
+                <dt>Trade-In</dt>
+                <dd>
+                  @if (leadItem.tradeInInterest) {
+                    <span class="interest interest--yes">Interested</span>
+                  } @else {
+                    <span class="interest">Not indicated</span>
+                  }
+                </dd>
+              </div>
+            </dl>
+          </article>
+        }
+      </div>
+    </section>
+  </div>
+</main>

@@ -1,1 +1,16 @@
-/* You can add global styles to this file, and also import other style files */
+html {
+  background: #090909;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #090909;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
