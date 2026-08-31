@@ -72,13 +72,38 @@
             [class.lead-card--alert]="leadItem.listingMismatch"
           >
             @if (leadItem.listingMismatch) {
-              <div class="inventory-alert" role="alert">
+              <div
+                class="inventory-alert"
+                role="alert"
+                tabindex="0"
+                [attr.aria-describedby]="'inventory-details-' + leadItem.stockNumber"
+                aria-label="Inventory exception. Focus for operational details."
+              >
                 <span class="alert-icon" aria-hidden="true">!</span>
-                <div>
+                <div class="alert-copy">
                   <strong>Inventory Exception</strong>
                   <span>Sold vehicle remains listed on the website</span>
                 </div>
                 <span class="alert-status">Action Required</span>
+
+                <dl
+                  class="inventory-details"
+                  [id]="'inventory-details-' + leadItem.stockNumber"
+                  role="tooltip"
+                >
+                  <div>
+                    <dt>Internal inventory status</dt>
+                    <dd>Sold</dd>
+                  </div>
+                  <div>
+                    <dt>Website listing</dt>
+                    <dd>Active</dd>
+                  </div>
+                  <div>
+                    <dt>Recommended action</dt>
+                    <dd>Verify and remove stale listing</dd>
+                  </div>
+                </dl>
               </div>
             }
 
@@ -90,10 +115,50 @@
               >
                 {{ getPriorityScore(leadItem.score) }} Priority
               </span>
-              <span class="score-block">
+              <div
+                class="score-block"
+                role="group"
+                tabindex="0"
+                [attr.aria-describedby]="'score-details-' + leadItem.stockNumber"
+                [attr.aria-label]="'Lead score ' + leadItem.score + '. Focus for score breakdown.'"
+              >
                 <span>Lead Score</span>
                 <strong>{{ leadItem.score }}</strong>
-              </span>
+
+                <div
+                  class="score-details"
+                  [id]="'score-details-' + leadItem.stockNumber"
+                  role="tooltip"
+                >
+                  <div class="score-details-heading">
+                    <span>Score Breakdown</span>
+                    <strong>{{ leadItem.score }} pts</strong>
+                  </div>
+                  <ul>
+                    @if (leadItem.financingInterest) {
+                      <li><span>Financing interest</span><strong>+20</strong></li>
+                    }
+                    @if (leadItem.vehicleAvailable) {
+                      <li><span>Vehicle available</span><strong>+20</strong></li>
+                    }
+                    @if (leadItem.tradeInInterest) {
+                      <li><span>Trade-in interest</span><strong>+15</strong></li>
+                    }
+                    @if (leadItem.daysSinceInquiry <= 1) {
+                      <li><span>Inquiry within 1 day</span><strong>+10</strong></li>
+                    } @else if (leadItem.daysSinceInquiry <= 3) {
+                      <li><span>Inquiry within 3 days</span><strong>+5</strong></li>
+                    }
+                    @if (leadItem.daysSinceContact >= 3 && leadItem.daysSinceContact <= 5) {
+                      <li><span>Contact 3–5 days</span><strong>+10</strong></li>
+                    } @else if (
+                      leadItem.daysSinceContact >= 6 && leadItem.daysSinceContact <= 10
+                    ) {
+                      <li><span>Contact 6–10 days</span><strong>+5</strong></li>
+                    }
+                  </ul>
+                </div>
+              </div>
             </div>
 
             <div class="vehicle-heading">

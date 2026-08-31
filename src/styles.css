@@ -14,3 +14,156 @@ select,
 textarea {
   font: inherit;
 }
+
+app-root .inventory-alert:focus-visible {
+  outline: 2px solid #f3f3ef;
+  outline-offset: -3px;
+}
+
+app-root .inventory-details {
+  position: absolute;
+  z-index: 30;
+  top: 100%;
+  right: 0;
+  left: 0;
+  margin: 0;
+  padding: 0.65rem 0.85rem;
+  border-top: 2px solid #a84c2b;
+  background: #0c0c0b;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.42);
+  color: #edede9;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-3px);
+  transition:
+    opacity 120ms ease,
+    transform 120ms ease,
+    visibility 120ms;
+}
+
+app-root .inventory-alert:hover .inventory-details,
+app-root .inventory-alert:focus .inventory-details,
+app-root .inventory-alert:focus-within .inventory-details {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+app-root .inventory-details > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: 0.75rem;
+  padding: 0.32rem 0;
+}
+
+app-root .inventory-details > div + div {
+  border-top: 1px solid #242421;
+}
+
+app-root .inventory-details dt,
+app-root .inventory-details dd {
+  margin: 0;
+  font-size: 0.62rem;
+  line-height: 1.35;
+}
+
+app-root .inventory-details dt {
+  color: #98958c;
+  font-weight: 500;
+}
+
+app-root .inventory-details dd {
+  color: #f0f0ec;
+  font-weight: 700;
+}
+
+app-root .score-block:focus-visible {
+  outline: 1px solid #b99f68;
+  outline-offset: 4px;
+}
+
+app-root .score-details {
+  position: absolute;
+  z-index: 25;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  width: min(245px, calc(100vw - 2rem));
+  padding: 0.7rem 0.75rem;
+  border-top: 2px solid #b99f68;
+  background: #090909;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.42);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-3px);
+  transition:
+    opacity 120ms ease,
+    transform 120ms ease,
+    visibility 120ms;
+}
+
+app-root .score-block:hover .score-details,
+app-root .score-block:focus .score-details,
+app-root .score-block:focus-within .score-details {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+app-root .score-details-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.45rem;
+}
+
+app-root .score-details-heading span,
+app-root .score-details-heading strong {
+  color: #c4aa71;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.025em;
+  border: 0;
+}
+
+app-root .score-details-heading span {
+  text-transform: uppercase;
+}
+
+app-root .score-details ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+app-root .score-details li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.3rem 0;
+  border-top: 1px solid #242421;
+}
+
+app-root .score-details li span,
+app-root .score-details li strong {
+  color: #d6d6d1;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  border: 0;
+}
+
+app-root .score-details li strong {
+  color: #f1f1ed;
+  font-weight: 800;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  app-root .inventory-details,
+  app-root .score-details {
+    transition: none;
+  }
+}

@@ -247,11 +247,14 @@ dt,
 }
 
 .inventory-alert {
+  position: relative;
   min-height: 54px;
   padding: 0.65rem 0.85rem;
   gap: 0.6rem;
   background: #ee5f2b;
   color: #090909;
+  cursor: help;
+  outline: none;
 }
 
 .alert-icon {
@@ -266,19 +269,19 @@ dt,
   font-weight: 900;
 }
 
-.inventory-alert div {
+.alert-copy {
   min-width: 0;
   display: grid;
   gap: 0.1rem;
 }
 
-.inventory-alert strong {
+.alert-copy strong {
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.035em;
 }
 
-.inventory-alert div span {
+.alert-copy span {
   font-size: 0.64rem;
   line-height: 1.3;
 }
@@ -317,9 +320,12 @@ dt,
 }
 
 .score-block {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  cursor: help;
+  outline: none;
 }
 
 .score-block span {
@@ -333,6 +339,7 @@ dt,
   font-size: 1rem;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
+  border-bottom: 1px dotted #a9915e;
 }
 
 .vehicle-heading {
