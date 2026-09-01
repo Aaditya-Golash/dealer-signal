@@ -106,19 +106,38 @@ const leads: Lead[] = [{
 //     );
 // }
 
-const scoredLeads = leads.map(
-  (leadItem) => {
-    return {
-      ...leadItem,
-      score: calculateScore(leadItem),
-      listingMismatch: hasListingMismatch(leadItem)
-    };
-  }
-);
-scoredLeads.sort((a, b) => b.score - a.score);
+function getScoredLeads() {
+  const scoredLeads = leads.map(
+    (leadItem) => {
+      return {
+        ...leadItem,
+        score: calculateScore(leadItem),
+        listingMismatch: hasListingMismatch(leadItem)
+      };
+    }
+  );
+
+  scoredLeads.sort((a, b) => b.score - a.score);
+
+  return scoredLeads;
+}
 
 app.get('/api/leads', (req, res) => {
-  res.json(scoredLeads);
+  res.json(getScoredLeads());
+});
+
+app.patch('/api/leads/:name/contact', (req, res) => {
+  const lead = leads.find(
+  (leadItem) => leadItem.name === req.params.name
+)
+if (!lead) {
+  return res.status(404).json({
+    message: 'Lead not found'
+  });
+}
+  lead.daysSinceContact = 0;
+
+  return res.json(getScoredLeads());
 });
 
 app.listen(PORT, () => {

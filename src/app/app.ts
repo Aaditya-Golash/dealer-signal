@@ -28,14 +28,40 @@ odometerKm: number;
 export class App {
   protected readonly title = signal('DealerSignal');
   private readonly http = inject(HttpClient);
-  protected leads: Lead[] = []; 
+  protected message = '';
+  protected leads: Lead[] = [];
+
   loadLeads() {
-  return this.http.get<Lead[]>('https://dealer-signal.onrender.com/api/leads');
-}
-constructor() {
-  this.loadLeads().subscribe((data) => {
+    return this.http.get<Lead[]>(
+      'https://dealer-signal.onrender.com/api/leads'
+    );
+  }
+
+logContact(name: string) {
+  this.http.patch<Lead[]>(
+    `https://dealer-signal.onrender.com/api/leads/${encodeURIComponent(name)}/contact`,
+    {}
+  ).subscribe((data) => {
     this.leads = data;
+    this.message = `Contact logged for ${name}. Priority recalculated.`;
   });
+}
+
+  constructor() {
+    this.loadLeads().subscribe((data) => {
+      this.leads = data;
+    });
+  }
+
+  getPriorityScore(score: number) {
+    if (score >= 50) {
+      return 'High';
+    } else if (score >= 35) {
+      return 'Medium';
+    } else {
+      return 'Low';
+    }
+  }
 }
     //{
 //       name: 'Sarah Chen',
@@ -100,17 +126,7 @@ constructor() {
   //   return score;
   // }
 
-  getPriorityScore(score: number){
-    if(score>=50){
-      return 'High';
-    }
-    else if(score>= 35){
-      return 'Medium';
-    }
-    else {
-    return 'Low';
-  }
-  }
+  
 
   // getSortedLeads(){
   //   const copiedLeads = [...this.leads];
@@ -119,4 +135,4 @@ constructor() {
   //   );
   //   return copiedLeads;
   // }
-}
+

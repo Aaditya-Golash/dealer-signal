@@ -1,7 +1,10 @@
 <main class="dashboard">
+
   <header class="dashboard-header">
+
     <div class="brand-lockup">
       <span class="brand-mark" aria-hidden="true">DS</span>
+
       <div>
         <p class="brand-name">{{ title() }}</p>
         <p class="brand-division">August Luxury Motorcars</p>
@@ -12,66 +15,99 @@
       <span class="status-dot" aria-hidden="true"></span>
       <span>Sales Intelligence</span>
     </div>
+
   </header>
 
   <div class="dashboard-content">
+
+    @if (message) {
+      <div class="success-message" role="status">
+        {{ message }}
+      </div>
+    }
+
     <section class="summary-grid" aria-label="Lead queue summary">
+
       <article class="summary-card summary-card--priority">
         <div class="summary-count" aria-label="High-priority leads">
+
           @for (leadItem of leads; track leadItem.name) {
             @if (getPriorityScore(leadItem.score) === 'High') {
               <span class="count-high" aria-hidden="true"></span>
             }
           }
+
           <strong class="counter-value counter-value--high"></strong>
         </div>
+
         <div>
           <p class="summary-label">High Priority</p>
           <p class="summary-note">Requires immediate follow-up</p>
         </div>
       </article>
 
+
       <article class="summary-card summary-card--alert">
+
         <div class="summary-count" aria-label="Inventory alerts">
+
           @for (leadItem of leads; track leadItem.name) {
             @if (leadItem.listingMismatch) {
               <span class="count-alert" aria-hidden="true"></span>
             }
           }
+
           <strong class="counter-value counter-value--alert"></strong>
         </div>
+
         <div>
           <p class="summary-label">Inventory Alerts</p>
           <p class="summary-note">Listing exceptions detected</p>
         </div>
+
       </article>
 
+
       <article class="summary-card">
+
         <strong class="summary-count">{{ leads.length }}</strong>
+
         <div>
           <p class="summary-label">Active Leads</p>
           <p class="summary-note">Currently in the sales queue</p>
         </div>
+
       </article>
+
     </section>
 
+
     <section class="queue-section" aria-labelledby="lead-queue-title">
+
       <div class="section-heading">
+
         <div>
           <p class="section-kicker">Opportunity Pipeline</p>
           <h1 id="lead-queue-title">Lead Queue</h1>
         </div>
+
         <p class="queue-count">{{ leads.length }} active opportunities</p>
+
       </div>
 
+
       <div class="lead-grid">
+
         @for (leadItem of leads; track leadItem.name) {
+
           <article
             class="lead-card"
             [class.lead-card--high]="getPriorityScore(leadItem.score) === 'High'"
             [class.lead-card--alert]="leadItem.listingMismatch"
           >
+
             @if (leadItem.listingMismatch) {
+
               <div
                 class="inventory-alert"
                 role="alert"
@@ -79,11 +115,14 @@
                 [attr.aria-describedby]="'inventory-details-' + leadItem.stockNumber"
                 aria-label="Inventory exception. Focus for operational details."
               >
+
                 <span class="alert-icon" aria-hidden="true">!</span>
+
                 <div class="alert-copy">
                   <strong>Inventory Exception</strong>
                   <span>Sold vehicle remains listed on the website</span>
                 </div>
+
                 <span class="alert-status">Action Required</span>
 
                 <dl
@@ -91,23 +130,31 @@
                   [id]="'inventory-details-' + leadItem.stockNumber"
                   role="tooltip"
                 >
+
                   <div>
                     <dt>Internal inventory status</dt>
                     <dd>Sold</dd>
                   </div>
+
                   <div>
                     <dt>Website listing</dt>
                     <dd>Active</dd>
                   </div>
+
                   <div>
                     <dt>Recommended action</dt>
                     <dd>Verify and remove stale listing</dd>
                   </div>
+
                 </dl>
+
               </div>
+
             }
 
+
             <div class="card-topline">
+
               <span
                 class="priority-badge"
                 [class.priority-badge--high]="getPriorityScore(leadItem.score) === 'High'"
@@ -115,6 +162,8 @@
               >
                 {{ getPriorityScore(leadItem.score) }} Priority
               </span>
+
+
               <div
                 class="score-block"
                 role="group"
@@ -122,6 +171,7 @@
                 [attr.aria-describedby]="'score-details-' + leadItem.stockNumber"
                 [attr.aria-label]="'Lead score ' + leadItem.score + '. Focus for score breakdown.'"
               >
+
                 <span>Lead Score</span>
                 <strong>{{ leadItem.score }}</strong>
 
@@ -130,41 +180,82 @@
                   [id]="'score-details-' + leadItem.stockNumber"
                   role="tooltip"
                 >
+
                   <div class="score-details-heading">
                     <span>Score Breakdown</span>
                     <strong>{{ leadItem.score }} pts</strong>
                   </div>
+
                   <ul>
+
                     @if (leadItem.financingInterest) {
-                      <li><span>Financing interest</span><strong>+20</strong></li>
+                      <li>
+                        <span>Financing interest</span>
+                        <strong>+20</strong>
+                      </li>
                     }
+
                     @if (leadItem.vehicleAvailable) {
-                      <li><span>Vehicle available</span><strong>+20</strong></li>
+                      <li>
+                        <span>Vehicle available</span>
+                        <strong>+20</strong>
+                      </li>
                     }
+
                     @if (leadItem.tradeInInterest) {
-                      <li><span>Trade-in interest</span><strong>+15</strong></li>
+                      <li>
+                        <span>Trade-in interest</span>
+                        <strong>+15</strong>
+                      </li>
                     }
+
                     @if (leadItem.daysSinceInquiry <= 1) {
-                      <li><span>Inquiry within 1 day</span><strong>+10</strong></li>
+                      <li>
+                        <span>Inquiry within 1 day</span>
+                        <strong>+10</strong>
+                      </li>
                     } @else if (leadItem.daysSinceInquiry <= 3) {
-                      <li><span>Inquiry within 3 days</span><strong>+5</strong></li>
+                      <li>
+                        <span>Inquiry within 3 days</span>
+                        <strong>+5</strong>
+                      </li>
                     }
-                    @if (leadItem.daysSinceContact >= 3 && leadItem.daysSinceContact <= 5) {
-                      <li><span>Contact 3–5 days</span><strong>+10</strong></li>
-                    } @else if (
-                      leadItem.daysSinceContact >= 6 && leadItem.daysSinceContact <= 10
+
+                    @if (
+                      leadItem.daysSinceContact >= 3 &&
+                      leadItem.daysSinceContact <= 5
                     ) {
-                      <li><span>Contact 6–10 days</span><strong>+5</strong></li>
+                      <li>
+                        <span>Contact 3–5 days</span>
+                        <strong>+10</strong>
+                      </li>
+                    } @else if (
+                      leadItem.daysSinceContact >= 6 &&
+                      leadItem.daysSinceContact <= 10
+                    ) {
+                      <li>
+                        <span>Contact 6–10 days</span>
+                        <strong>+5</strong>
+                      </li>
                     }
+
                   </ul>
+
                 </div>
+
               </div>
+
             </div>
 
+
             <div class="vehicle-heading">
+
               <p class="vehicle-label">Vehicle of Interest</p>
+
               <h2>{{ leadItem.vehicle }}</h2>
+
               <div class="price-row">
+
                 @if (leadItem.priceCad !== null) {
                   <strong>${{ leadItem.priceCad.toLocaleString('en-CA') }}</strong>
                   <span>CAD</span>
@@ -172,43 +263,65 @@
                   <strong class="price-on-request">Contact dealership</strong>
                   <span>Price</span>
                 }
+
               </div>
+
             </div>
 
+
             <dl class="vehicle-facts">
+
               <div>
                 <dt>Odometer</dt>
                 <dd>{{ leadItem.odometerKm }} <span>km</span></dd>
               </div>
+
               <div>
                 <dt>Stock Number</dt>
                 <dd>{{ leadItem.stockNumber }}</dd>
               </div>
+
             </dl>
 
+
             <div class="customer-row">
-              <div class="customer-avatar" aria-hidden="true">{{ leadItem.name.charAt(0) }}</div>
+
+              <div class="customer-avatar" aria-hidden="true">
+                {{ leadItem.name.charAt(0) }}
+              </div>
+
               <div>
                 <span>Prospective Client</span>
                 <h3>{{ leadItem.name }}</h3>
               </div>
+
             </div>
 
+
             <dl class="lead-details">
+
               <div>
                 <dt>Since Inquiry</dt>
                 <dd>
                   {{ leadItem.daysSinceInquiry }}
-                  <span>{{ leadItem.daysSinceInquiry === 1 ? 'day' : 'days' }}</span>
+                  <span>
+                    {{ leadItem.daysSinceInquiry === 1 ? 'day' : 'days' }}
+                  </span>
                 </dd>
               </div>
+
+
               <div>
                 <dt>Since Contact</dt>
                 <dd>
                   {{ leadItem.daysSinceContact }}
-                  <span>{{ leadItem.daysSinceContact === 1 ? 'day' : 'days' }}</span>
+                  <span>
+                    {{ leadItem.daysSinceContact === 1 ? 'day' : 'days' }}
+                  </span>
                 </dd>
               </div>
+
+
               <div>
                 <dt>Financing</dt>
                 <dd>
@@ -219,6 +332,8 @@
                   }
                 </dd>
               </div>
+
+
               <div>
                 <dt>Trade-In</dt>
                 <dd>
@@ -229,10 +344,26 @@
                   }
                 </dd>
               </div>
+
             </dl>
+
+
+            <button
+              type="button"
+              class="log-contact-btn"
+              (click)="logContact(leadItem.name)"
+            >
+              Log Contact
+            </button>
+
           </article>
+
         }
+
       </div>
+
     </section>
+
   </div>
+
 </main>

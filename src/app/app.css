@@ -503,6 +503,39 @@ dd span {
   vertical-align: 0.1em;
 }
 
+.log-contact-btn {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: 1px solid #b89b68;
+  color: #f5f5f5;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.log-contact-btn:hover,
+.log-contact-btn:focus-visible {
+  background: #b89b68;
+  color: #111;
+  outline: none;
+}
+
+.success-message {
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #b89b68;
+  background: #15140f;
+  color: #f1f1ef;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
 @media (max-width: 1080px) {
   .dashboard-header {
     padding-inline: 1.5rem;
