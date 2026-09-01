@@ -393,9 +393,11 @@ I am a recent computer science graduate from UBCO who enjoys building and shippi
 
 I am particularly interested in fast-moving engineering environments, AI-assisted development, and end-to-end product work. I may be earlier in my career than the title suggests, but I learn quickly, move fast, and am comfortable taking ownership of unfamiliar technical problems.
 
-I am also genuinely interested in cars and the automotive industry, which is part of why I chose to build DealerSignal around a real dealership workflow rather than a generic portfolio project.
+I am BIG car nerd. This is part of why I chose to build DealerSignal around a real dealership workflow rather than a generic portfolio project.
 
 Having studied and worked in Kelowna, I am familiar with the city and the UBC Okanagan environment and would be excited to build something long term in the region.I am also genuinely interested in cars and the automotive industry. My favourite car is the red Mercedes-Benz 300 SL Gullwing, which is part of why building something around a luxury dealership workflow felt especially natural to me.
+
+This opportnity particularly excites me because it would allow me to combine both my nerdy interests together builiding software and cars.
 
 ---
 
