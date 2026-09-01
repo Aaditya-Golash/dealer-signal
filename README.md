@@ -387,6 +387,17 @@ Once enough historical activity and deal outcomes exist, the deterministic score
 A model should only replace or augment the rules if it can demonstrate better decision quality on real dealership outcomes.
 
 ---
+## About Me
+
+I am a recent computer science graduate from UBCO who enjoys building and shipping software, especially systems where product decisions, architecture, and implementation are tightly connected.
+
+I am particularly interested in fast-moving engineering environments, AI-assisted development, and end-to-end product work. I may be earlier in my career than the title suggests, but I learn quickly, move fast, and am comfortable taking ownership of unfamiliar technical problems.
+
+I am also genuinely interested in cars and the automotive industry, which is part of why I chose to build DealerSignal around a real dealership workflow rather than a generic portfolio project.
+
+Having studied and worked in Kelowna, I am familiar with the city and the UBC Okanagan environment and would be excited to build something long term in the region.I am also genuinely interested in cars and the automotive industry. My favourite car is the red Mercedes-Benz 300 SL Gullwing, which is part of why building something around a luxury dealership workflow felt especially natural to me.
+
+---
 
 ## Why the Scope Is Small
 
