@@ -30,7 +30,7 @@ export class App {
   private readonly http = inject(HttpClient);
   protected leads: Lead[] = []; 
   loadLeads() {
-  return this.http.get<Lead[]>('http://localhost:3000/api/leads');
+  return this.http.get<Lead[]>('https://dealer-signal.onrender.com/api/leads');
 }
 constructor() {
   this.loadLeads().subscribe((data) => {

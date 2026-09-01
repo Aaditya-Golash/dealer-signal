@@ -9,7 +9,10 @@ import {
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
 app.use(cors({
-  origin: 'http://localhost:4200'
+  origin: [
+    'http://localhost:4200',
+    'https://dealersignal-14f5c.web.app'
+  ]
 }));
 // type VehicleStatus = 'available' | 'pending' | 'sold';
 // type Lead = {name : string;
